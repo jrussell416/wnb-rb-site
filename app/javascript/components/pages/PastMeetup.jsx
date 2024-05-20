@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import PropTypes from 'prop-types';
 import { getPastMeetup } from '../../datasources';
 import SharedLayout from 'components/layout/SharedLayout';
@@ -16,7 +16,7 @@ const VideoBlock = ({ videoUrl, title }) => {
     }
     return (
         <div className="card-container flex flex-wrap justify-center aspect-w-16 aspect-h-9">
-            <iframe src={videoUrl} title={title} frameBorder="0"></iframe>;
+            <iframe src={videoUrl} title={title} style={{ border: 'none' }}></iframe>;
         </div>
     );
 };

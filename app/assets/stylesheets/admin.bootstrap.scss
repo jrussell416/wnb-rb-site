@@ -1,3 +1,4 @@
+@use 'slim-select/dist/slimselect.css';
 
 @import 'admin/components/colors.scss';
 @import 'admin/components/buttons.scss';
@@ -8,3 +9,6 @@
 
 // Custom
 @import 'admin/header.scss';
+
+// Slim Select custom
+@import 'admin/custom_slim_select.scss';

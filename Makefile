@@ -1,11 +1,11 @@
 setup:
-	bundle install && yarn install && rails db:setup
+	bundle install && yarn install && yarn build && yarn build:css && rails db:setup
 
 start:
 	foreman start
 
 start_client:
-	bin/webpack-dev-server
+	bin/shakapacker-dev-server
 
 start_server:
 	rails server

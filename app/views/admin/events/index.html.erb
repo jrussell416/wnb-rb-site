@@ -1,10 +1,11 @@
 <h1 class="mb-4">Event List</h1>
-<div class="row">
-  <div class="col">
-    <%= link_to new_admin_event_path, class: "btn btn-primary btn-md mb-4" do %>
-      Create new Event
-      <i class="bi bi-plus fw-semibold"></i>
-    <% end %>
+<div class="d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between align-items-center">
+  <%= link_to new_admin_event_path, class: "btn btn-primary btn-md mb-4" do %>
+    Create new Event
+    <i class="bi bi-plus fw-semibold"></i>
+  <% end %>
+  <div class="mb-4">
+    <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
   </div>
 </div>
 <div class="row">
@@ -25,7 +26,6 @@
         </thead>
         <tbody>
           <% @events.each do |event| %>
-
             <tr class="border-2">
               <td class="p-3"><%= event.id %></td>
               <td class="p-3"><%= event.title %></td>
@@ -36,7 +36,7 @@
               <td class="p-3"><%= truncate_html(event.description) %></td>
               <td class="p-3">
                 <%= link_to 'Edit', edit_admin_event_path(event) %>
-                <%= button_to "Delete", admin_event_url(event), form_class: "", class: "link-primary border-0 bg-transparent text-decoration-underline", method: :delete %>
+                <%= button_to "Delete", admin_event_url(event), form_class: "", class: "link-primary border-0 bg-transparent text-decoration-underline", method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
               </td>
             </tr>
           <% end %>

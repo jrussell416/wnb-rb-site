@@ -9,18 +9,18 @@ Rails.application.routes.draw do
                registration: 'register',
              }
 
-  namespace :admin, constraints: { format: 'html' } do
+  namespace :admin do
     get 'dashboard', to: 'dashboard#show'
     resources :speakers, only: %i[index new create edit update]
-    resources :events, only: %i[index new create edit update destroy]
+    resources :events, only: %i[index new create edit update destroy] do
+      collection do
+        get 'set_talk/:talk_id', action: :set_talk, as: :set_talk
+        post 'generate_talk/:talk_id', action: :generate_talk, as: :generate_talk
+      end
+    end
   end
 
-  get '/sponsor-us', to: redirect('/partner-with-us')
-
-  get '/partner-with-us', to: 'site#sponsor_us'
   get '/meetups', to: 'site#meetups'
-  get '/jobs', to: 'site#jobs'
-  get '/jobs/authenticate', to: 'site#jobs_authenticate'
   get '/join-us', to: 'site#join_us'
   get '/donate', to: 'site#donate'
   get '/meetups/:year/:month/:day', to: 'site#past_meetup'
@@ -44,4 +44,6 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
   resources :grid
+
+  match '*unmatched', to: 'application#render_not_found', via: :all
 end
